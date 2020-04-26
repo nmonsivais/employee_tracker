@@ -6,7 +6,7 @@ inquirer
             type: "list",
             message: "What would you like to do?",
             choices: ["Add a department", "Add a role", "Add an employee", "View a department", "View a role", "View an employee", "Update an employee role",],
-            name: "addAction"
+            name: "addViewUpdate"
         },
 
     ])
