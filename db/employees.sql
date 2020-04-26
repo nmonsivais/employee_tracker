@@ -29,4 +29,5 @@ CREATE TABLE employee
   manager_id INTEGER(10),
   PRIMARY KEY (emp_id),
   FOREIGN KEY (role_id) REFERENCES emp_role(role_id)
+  FOREIGN KEY (manager_id) REFERENCES employee(emp_id)
 );
