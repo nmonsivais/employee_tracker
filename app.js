@@ -66,8 +66,6 @@ function addDepartment() {
                 message: "What department would you like to add?",
                 name: "addDepartment"
             },
-
-
         ])
         .then(function (response) {
             console.log(response.addDepartment);
@@ -85,9 +83,37 @@ function addDepartment() {
         })
 }
 
-// function addRole() {
-
-// }
+function addRole() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What role title would you like to add?",
+                name: "addRole"
+            },
+            {
+                type: "number",
+                message: "What is the salary of this role?",
+                name: "roleSalary"
+            },
+            {
+                type: "number",
+                message: "What is the ID department of this role?",
+                name: "idDepartment"
+            },
+        ])
+        .then(function (response) {
+            console.log(response.addRole)
+            connection.query(
+                "INSERT INTO emp_role SET ?",
+                {
+                    title: response.addRole,
+                    salary: response.roleSalary,
+                    departent_id: response.idDepartment
+                }
+            )
+        })
+}
 
 function viewDepartments() {
     connection.query(
