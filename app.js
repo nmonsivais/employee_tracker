@@ -40,8 +40,17 @@ function start() {
                 case "Add a department":
                     console.log("About to add department")
                     addDepartment();
-                    break
+                    break;
+                case "Add a role":
+                    console.log("Your role is...")
+                    addRole();
+                    break;
+                case "View a department":
+                    console.log("About to view a department")
+                    viewDepartments();
+                    break;
             }
+
             console.log(response.addViewUpdate);
             //create switch statements to go to next question depending on response.
         })
@@ -58,5 +67,37 @@ function addDepartment() {
                 name: "addDepartment"
             },
 
+
         ])
+        .then(function (response) {
+            console.log(response.addDepartment);
+            connection.query(
+                "INSERT INTO department SET ?",
+                {
+                    dept_name: response.addDepartment
+                },
+                function (err) {
+                    if (err) throw err;
+                    console.log("Your data was transferred successfully!");
+                    start()
+                }
+            )
+        })
+}
+
+// function addRole() {
+
+// }
+
+function viewDepartments() {
+    connection.query(
+        "SELECT * FROM department",
+        function (err, results) {
+            if (err) throw err;
+            console.log("Here is your table:", results);
+            console.table(results);
+            start()
+        }
+    )
+    // console.table
 }
