@@ -109,7 +109,7 @@ function addRole() {
                 {
                     title: response.addRole,
                     salary: response.roleSalary,
-                    departent_id: response.idDepartment
+                    department_id: response.idDepartment
                 }
             )
         })
