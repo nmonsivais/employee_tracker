@@ -49,6 +49,10 @@ function start() {
                     console.log("About to view a department")
                     viewDepartments();
                     break;
+                case "Add an employee":
+                    console.log("Your new employee is")
+                    addEmployee();
+                    break;
             }
 
             console.log(response.addViewUpdate);
@@ -112,6 +116,50 @@ function addRole() {
                     department_id: response.idDepartment
                 }
             )
+        })
+}
+
+function addEmployee() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is the employee's first name?",
+                name: "firstName"
+            },
+            {
+                type: "input",
+                message: "What is the employee's last name?",
+                name: "lastName"
+            },
+            {
+                type: "number",
+                message: "What is the employee's role ID #?",
+                name: "employeeRole"
+            },
+            {
+                type: "number",
+                message: "What is the employee's manager ID #? If none, type 0",
+                name: "employeeManager"
+            },
+        ])
+        .then(function (response) {
+            console.log(response)
+            connection.query(
+                "INSERT INTO employee SET ?",
+                {
+                    first_name: response.firstName,
+                    last_name: response.lastName,
+                    role_id: response.employeeRole,
+                    manager_id: response.employeeManager
+                },
+                function (err) {
+                    if (err) throw err;
+                    console.log("Your employee was added successfully!");
+                    start()
+                }
+            )
+
         })
 }
 
