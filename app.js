@@ -29,7 +29,7 @@ function start() {
             {
                 type: "list",
                 message: "What would you like to do?",
-                choices: ["Add a department", "Add a role", "Add an employee", "View a department", "View a role", "View an employee", "Update an employee role",],
+                choices: ["Add a department", "Add a role", "Add an employee", "View a department", "View a role", "View all employees", "Update an employee role", "Exit App",],
                 name: "addViewUpdate"
             },
 
@@ -49,9 +49,17 @@ function start() {
                     console.log("About to view a department")
                     viewDepartments();
                     break;
+                case "View all employees":
+                    console.log("About to view all employees")
+                    viewAllEmployees();
+                    break;
                 case "Add an employee":
                     console.log("Your new employee is")
                     addEmployee();
+                    break;
+                case "Update an employee role":
+                    console.log("You are about to update an employee.")
+                    updateEmployeeRole();
                     break;
             }
 
@@ -114,6 +122,11 @@ function addRole() {
                     title: response.addRole,
                     salary: response.roleSalary,
                     department_id: response.idDepartment
+                },
+                function (err) {
+                    if (err) throw err;
+                    console.log("Your role was created successfully!");
+                    start()
                 }
             )
         })
@@ -174,4 +187,68 @@ function viewDepartments() {
         }
     )
     // console.table
+}
+
+function viewAllEmployees() {
+    connection.query(
+        "SELECT * FROM employee",
+        function (err, results) {
+            if (err) throw err;
+            console.log("Here is your table:", results);
+            console.table(results);
+            start()
+        }
+    )
+    // console.table
+}
+
+function updateEmployeeRole() {
+    connection.query(
+        "SELECT * FROM employee",
+        function (err, results) {
+            if (err) throw err;
+            inquirer
+                .prompt([
+                    {
+                        name: "employee",
+                        type: "rawlist",
+                        choices: function () {
+                            var choiceArray = [];
+                            for (var i = 0; i < results.length; i++) {
+                                choiceArray.push(results[i].first_name);
+                            }
+                            return choiceArray;
+                        },
+                        message: "Please select a user."
+                    },
+                    {
+                        type: "input",
+                        message: "What role would you like to change it to.",
+                        name: "roleUpdate"
+                    }
+                ])
+            // .then(function (response) {
+            //     console.log(response)
+            //     connection.query(
+            //         LOOK INTO SQL DOCUMENTATION.  BELOW, UPDATE entry with role ID where ? = ID.
+
+            //         ---------------------------//
+            //                 " INTO employee SET ?",
+            //                 {
+            //                     first_name: response.firstName,
+            //                     last_name: response.lastName,
+            //                     role_id: response.employeeRole,
+            //                     manager_id: response.employeeManager
+            //                 },
+            //                 function (err) {
+            //                     if (err) throw err;
+            //                     console.log("Your employee was added successfully!");
+            //                     start()
+            //                 }
+            //             )
+
+        })
+
+    //         }
+    //     )
 }
