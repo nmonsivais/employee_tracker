@@ -252,8 +252,8 @@ function updateEmployeeRole() {
                 ])
                 .then(function (response) {
                     console.log("\n Updating role id...\n");
-                    console.log("Role ID for " + response.employee + " has been updated to " + response.roleUpdate);
-                    connection.query(
+                    console.log("Role ID for " + response.employee + " has been updated to " + response.roleUpdate + "\n");
+                    var query = connection.query(
                         "UPDATE employee SET ? WHERE ?",
                         [
                             {
@@ -262,13 +262,14 @@ function updateEmployeeRole() {
                             {
                                 first_name: response.employee
                             },
-                            function (err) {
-                                if (err) throw err;
-                                console.log("Your employee role was updated successfully.");
-                                start()
-                            }
-                        ]
-                    )
+                        ],
+                        function (err) {
+                            if (err) throw err;
+                            console.log("Employee role successfully updated.\n");
+                            //call start function after the update completes.
+                            start()
+                        }
+                    );
                 })
             //keep both lines below in case of errors.
         })
