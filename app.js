@@ -29,7 +29,7 @@ function start() {
             {
                 type: "list",
                 message: "What would you like to do?",
-                choices: ["Add a department", "Add a role", "Add an employee", "View a department", "View a role", "View all employees", "Update an employee role", "Exit App",],
+                choices: ["Add a department", "Add a role", "Add an employee", "View all departments", "View all roles", "View all employees", "Update an employee role", "Exit App",],
                 name: "addViewUpdate"
             },
 
@@ -38,28 +38,38 @@ function start() {
         .then(function (response) {
             switch (response.addViewUpdate) {
                 case "Add a department":
-                    console.log("About to add department")
+                    console.log("You are about to add department.")
                     addDepartment();
                     break;
                 case "Add a role":
-                    console.log("Your role is...")
+                    console.log("You are about to add a role.")
                     addRole();
                     break;
-                case "View a department":
-                    console.log("About to view a department")
-                    viewDepartments();
-                    break;
-                case "View all employees":
-                    console.log("About to view all employees")
-                    viewAllEmployees();
-                    break;
                 case "Add an employee":
-                    console.log("Your new employee is")
+                    console.log("You are about to add an employee.")
                     addEmployee();
                     break;
+                case "View all departments":
+                    console.log("You are about to view all departments.")
+                    viewDepartments();
+                    break;
+                //need to creat view all roles function
+                case "View all roles":
+                    console.log("You are about to view all roles.")
+                    viewAllRoles()
+                    break;
+                case "View all employees":
+                    console.log("You are about to view all employees")
+                    viewAllEmployees();
+                    break;
                 case "Update an employee role":
-                    console.log("You are about to update an employee.")
+                    console.log("You are about to update an employee role.")
                     updateEmployeeRole();
+                    break;
+                //need to create exit app function
+                case "Exit App":
+                    console.log("You are exiting the app.")
+                    exitApp()
                     break;
             }
 
@@ -251,4 +261,10 @@ function updateEmployeeRole() {
 
     //         }
     //     )
+}
+
+function exitApp() {
+    setTimeout((function () {
+        return process.kill(process.pid);
+    }), 1000);
 }
