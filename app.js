@@ -250,30 +250,28 @@ function updateEmployeeRole() {
                         name: "roleUpdate"
                     }
                 ])
-            // .then(function (response) {
-            //     console.log(response)
-            //     connection.query(
-            //         LOOK INTO SQL DOCUMENTATION.  BELOW, UPDATE entry with role ID where ? = ID.
-
-            //         ---------------------------//
-            //                 " INTO employee SET ?",
-            //                 {
-            //                     first_name: response.firstName,
-            //                     last_name: response.lastName,
-            //                     role_id: response.employeeRole,
-            //                     manager_id: response.employeeManager
-            //                 },
-            //                 function (err) {
-            //                     if (err) throw err;
-            //                     console.log("Your employee was added successfully!");
-            //                     start()
-            //                 }
-            //             )
-
+                .then(function (response) {
+                    console.log("\n Updating role id...\n");
+                    console.log("Role ID for " + response.employee + " has been updated to " + response.roleUpdate);
+                    connection.query(
+                        "UPDATE employee SET ? WHERE ?",
+                        [
+                            {
+                                role_id: response.roleUpdate
+                            },
+                            {
+                                first_name: response.employee
+                            },
+                            function (err) {
+                                if (err) throw err;
+                                console.log("Your employee role was updated successfully.");
+                                start()
+                            }
+                        ]
+                    )
+                })
+            //keep both lines below in case of errors.
         })
-
-    //         }
-    //     )
 }
 
 function exitApp() {
