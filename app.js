@@ -66,7 +66,6 @@ function start() {
                     console.log("You are about to update an employee role.")
                     updateEmployeeRole();
                     break;
-                //need to create exit app function
                 case "Exit App":
                     console.log("You are exiting the app.")
                     exitApp()
@@ -155,6 +154,7 @@ function addEmployee() {
                 message: "What is the employee's last name?",
                 name: "lastName"
             },
+
             {
                 type: "number",
                 message: "What is the employee's role ID #?",
@@ -189,6 +189,19 @@ function addEmployee() {
 function viewDepartments() {
     connection.query(
         "SELECT * FROM department",
+        function (err, results) {
+            if (err) throw err;
+            console.log("Here is your table:", results);
+            console.table(results);
+            start()
+        }
+    )
+    // console.table
+}
+
+function viewAllRoles() {
+    connection.query(
+        "SELECT * FROM emp_role",
         function (err, results) {
             if (err) throw err;
             console.log("Here is your table:", results);
