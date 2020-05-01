@@ -71,7 +71,6 @@ function start() {
                     exitApp()
                     break;
             }
-
             console.log(response.addViewUpdate);
             //create switch statements to go to next question depending on response.
         })
@@ -191,7 +190,6 @@ function viewDepartments() {
         "SELECT * FROM department",
         function (err, results) {
             if (err) throw err;
-            console.log("Here is your table:", results);
             console.table(results);
             start()
         }
@@ -204,7 +202,6 @@ function viewAllRoles() {
         "SELECT * FROM emp_role",
         function (err, results) {
             if (err) throw err;
-            console.log("Here is your table:", results);
             console.table(results);
             start()
         }
@@ -217,7 +214,6 @@ function viewAllEmployees() {
         "SELECT * FROM employee",
         function (err, results) {
             if (err) throw err;
-            console.log("Here is your table:", results);
             console.table(results);
             start()
         }
